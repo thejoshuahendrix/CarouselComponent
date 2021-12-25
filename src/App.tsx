@@ -1,24 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
+import Slider from 'react-slick';
+import pic1 from './assets/binary.png';
+import pic2 from './assets/Capture.png';
+import pic3 from './assets/Clip_M1-SKS.jpg';
+import pic4 from './assets/dbuglog.png';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import './App.css';
+import { useState } from 'react';
+
+
+const images = [pic1, pic2, pic3, pic4];
 
 function App() {
+  const NextArrow = ({ onClick }: any) => {
+    return (
+      <div className="arrow next" onClick={onClick}>
+        <FaArrowRight />
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }: any) => {
+    return (
+      <div className="arrow prev" onClick={onClick}>
+        <FaArrowLeft />
+      </div>
+    );
+  };
+
+  const [ImageIndex, setImageIndex] = useState(0)
+  const settings = {
+    infinite: true,
+    lazyload: true,
+    speed: 300,
+    slidesToShow: 3,
+    centerMode: true,
+    centerPadding: "0px",
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    beforeChange: (current: any, next: any) => setImageIndex(next)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Slider {...settings}>
+        {images.map((image, i) => {
+          return (
+            <div className={i === ImageIndex ? 'slide activeSlide' : 'slide'}>
+              <img  src={image} alt={image} />
+            </div>
+          )
+        })}
+      </Slider>
     </div>
   );
 }
