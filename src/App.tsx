@@ -7,9 +7,12 @@ import pic4 from './assets/dbuglog.png';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import './App.css';
 import { useState } from 'react';
+import Card from './components/Card';
 
 
 const images = [pic1, pic2, pic3, pic4];
+const cards = [<Card />, <Card />, <Card />, <Card />]
+
 
 function App() {
   const NextArrow = ({ onClick }: any) => {
@@ -43,10 +46,10 @@ function App() {
   return (
     <div className="App">
       <Slider {...settings}>
-        {images.map((image, i) => {
+        {cards.map((card, i) => {
           return (
             <div className={i === ImageIndex ? 'slide activeSlide' : 'slide'}>
-              <img  src={image} alt={image} />
+              {card}
             </div>
           )
         })}
